@@ -6,24 +6,28 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.define "storm1" do |storm1|
-        storm1.vm.box = "centos64_base"
-        storm1.vm.network :private_network, ip: "192.168.33.11"
+  config.vm.define "storm1" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.11"
+        config.vm.hostname = "storm1"
   end
 
-  config.vm.define "storm2" do |storm2|
-        storm2.vm.box = "centos64_base"
-        storm2.vm.network :private_network, ip: "192.168.33.12"
+  config.vm.define "storm2" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.12"
+        config.vm.hostname = "storm2"
   end
 
-  config.vm.define "storm3" do |storm3|
-        storm3.vm.box = "centos64_base"
-        storm3.vm.network :private_network, ip: "192.168.33.13"
+  config.vm.define "storm3" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.13"
+        config.vm.hostname = "storm3"
   end
 
-  config.vm.define "storm4" do |storm4|
-        storm4.vm.box = "centos64_base"
-        storm4.vm.network :private_network, ip: "192.168.33.14"
+  config.vm.define "storm4" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.14"
+        config.vm.hostname = "storm4"
   end
 
 end
