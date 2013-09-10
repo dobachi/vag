@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.define "kafka1" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.21"
+        config.vm.hostname = "kafka1"
+  end
+
+  config.vm.define "kafka2" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.22"
+        config.vm.hostname = "kafka2"
+  end
+
+  config.vm.define "kafka3" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.23"
+        config.vm.hostname = "kafka3"
+  end
+
+  config.vm.define "kafka4" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.24"
+        config.vm.hostname = "kafka4"
+  end
+
+end
