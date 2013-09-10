@@ -6,28 +6,28 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.define "kafka1" do |config|
+  config.vm.define "kafka-1" do |config|
         config.vm.box = "centos64_base"
         config.vm.network :private_network, ip: "192.168.33.21"
-        config.vm.hostname = "kafka1"
+        config.vm.hostname = "kafka-1"
   end
 
-  config.vm.define "kafka2" do |config|
+  config.vm.define "kafka-2" do |config|
         config.vm.box = "centos64_base"
         config.vm.network :private_network, ip: "192.168.33.22"
-        config.vm.hostname = "kafka2"
+        config.vm.hostname = "kafka-2"
   end
 
-  config.vm.define "kafka3" do |config|
+  config.vm.define "kafka-3" do |config|
         config.vm.box = "centos64_base"
         config.vm.network :private_network, ip: "192.168.33.23"
-        config.vm.hostname = "kafka3"
+        config.vm.hostname = "kafka-3"
   end
 
-  config.vm.define "kafka4" do |config|
+  config.vm.define "kafka-4" do |config|
         config.vm.box = "centos64_base"
         config.vm.network :private_network, ip: "192.168.33.24"
-        config.vm.hostname = "kafka4"
+        config.vm.hostname = "kafka-4"
   end
 
 end
