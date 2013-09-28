@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.define "hbase-dev" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.40"
+        config.vm.hostname = "hbase-dev"
+  end
+
+  config.vm.define "hbase-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.41"
+        config.vm.hostname = "hbase-01"
+  end
+
+  config.vm.define "hbase-02" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.42"
+        config.vm.hostname = "hbase-02"
+  end
+
+  config.vm.define "hbase-03" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.43"
+        config.vm.hostname = "hbase-03"
+  end
+
+  config.vm.define "hbase-04" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.44"
+        config.vm.hostname = "hbase-04"
+  end
+
+end
