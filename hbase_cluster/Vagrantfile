@@ -42,4 +42,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.hostname = "hbase-pseudo"
   end
 
+  config.vm.define "hbase-pseudo-cdh3" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.46"
+        config.vm.hostname = "hbase-pseudo-cdh3"
+  end
+
 end
