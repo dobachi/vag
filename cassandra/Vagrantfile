@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.define "cass-dev" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.50"
+        config.vm.hostname = "cass-dev"
+  end
+
+  config.vm.define "cass-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.51"
+        config.vm.hostname = "cass-01"
+  end
+
+  config.vm.define "cass-02" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.52"
+        config.vm.hostname = "cass-02"
+  end
+
+  config.vm.define "cass-03" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.53"
+        config.vm.hostname = "cass-03"
+  end
+
+end
