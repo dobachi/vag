@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.define "spark-dev" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.60"
+        config.vm.hostname = "spark-dev"
+  end
+
+  config.vm.define "spark-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.61"
+        config.vm.hostname = "spark-01"
+  end
+
+  config.vm.define "spark-02" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.62"
+        config.vm.hostname = "spark-02"
+  end
+
+  config.vm.define "spark-03" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.63"
+        config.vm.hostname = "spark-03"
+  end
+
+end
