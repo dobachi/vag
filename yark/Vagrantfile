@@ -41,11 +41,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.network :private_network, ip: "192.168.33.68"
         config.vm.hostname = "yark-04"
   end
-
-  config.vm.define "yark-pseudo" do |config|
-        config.vm.box = "centos64_base"
-        config.vm.network :private_network, ip: "192.168.33.69"
-        config.vm.hostname = "yark-pseudo"
-  end
-
 end

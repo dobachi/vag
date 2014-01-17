@@ -1,2 +1,2 @@
-(cd spark_yarn; vagrant halt)
+(cd yark; vagrant halt)
 (cd management; vagrant halt)

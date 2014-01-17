@@ -1,2 +1,2 @@
 (cd management; vagrant up)
-(cd spark_yarn; vagrant up yark-pseudo)
+(cd yark-pseudo; vagrant up)
