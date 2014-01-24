@@ -1,2 +1,2 @@
-(cd yarn-pseudo; vagrant halt)
+(cd yark-pseudo; vagrant halt)
 (cd management; vagrant halt)
