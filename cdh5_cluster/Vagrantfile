@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.provider :virtualbox do |vb|
+    vb.auto_nat_dns_proxy = false
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+  end
+
+  config.vm.define "cdh5-cl-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.70"
+        config.vm.hostname = "cdh5-cl-01"
+  end
+
+  config.vm.define "cdh5-nn-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.71"
+        config.vm.hostname = "cdh5-nn-01"
+  end
+
+  config.vm.define "cdh5-rm-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.72"
+        config.vm.hostname = "cdh5-rm-01"
+  end
+
+  config.vm.define "cdh5-sl-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.73"
+        config.vm.hostname = "cdh5-sl-01"
+  end
+
+  config.vm.define "cdh5-sl-02" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.74"
+        config.vm.hostname = "cdh5-sl-02"
+  end
+
+  config.vm.define "cdh5-sl-03" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.75"
+        config.vm.hostname = "cdh5-sl-03"
+  end
+
+  config.vm.define "cdh5-ot-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.79"
+        config.vm.hostname = "cdh5-ot-01"
+  end
+
+end
