@@ -48,6 +48,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.hostname = "cdh5-sl-03"
   end
 
+  config.vm.define "cdh5-snn-01" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.78"
+        config.vm.hostname = "cdh5-snn-01"
+  end
+
   config.vm.define "cdh5-ot-01" do |config|
         config.vm.box = "centos64_base"
         config.vm.network :private_network, ip: "192.168.33.79"
