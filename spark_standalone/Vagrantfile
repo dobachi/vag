@@ -36,4 +36,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.hostname = "spark-03"
   end
 
+  config.vm.define "spark-04" do |config|
+        config.vm.box = "centos64_base"
+        config.vm.network :private_network, ip: "192.168.33.64"
+        config.vm.hostname = "spark-04"
+  end
+
 end
