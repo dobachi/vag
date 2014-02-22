@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: UTF-8
 
 import sys
 import yaml
@@ -7,6 +8,11 @@ import pprint
 from subprocess import Popen, PIPE, STDOUT
 
 class ClusterConfig:
+  u'''
+  クラスタの設定ファイルの内容を格納するクラス。
+  print_listメソッドを利用し、設定ファイルの内容を
+  パースして出力できる。
+  '''
   def __init__(self, config_name="cluster.yml"):
     self.config_name = config_name
     self.data = self.load_config()
@@ -23,15 +29,30 @@ class ClusterConfig:
     return yaml.load(string)["clusters"]
 
   def print_list(self):
+    u'''
+    設定ファイルの内容をパースして一覧として表示する。
+    '''
 
+    print ""
     print "Available cluster"
     print "================="
+    print "You can use the following cluster names."
+    print ""
     for cluster in self.data:
       print "- %s" % cluster["name"]
 
     print ""
     print "Cluster detail"
     print "=============="
+    print "The following is the detail of each cluster."
+    print ""
+    print "Sample"
+    print "------"
+    print "Cluster: <cluster name>"
+    print "  - <directory name>(<server list>)"
+    print ""
+    print "Clusters"
+    print "--------"
     for cluster in self.data:
       print "Cluster: %s" % cluster["name"]
       for dir in cluster["dirs"]:
@@ -41,6 +62,10 @@ class ClusterConfig:
       print ""
 
 class VMController:
+  u'''
+  VagrantのVMを管理するクラス。
+  起動したり、停止したりできる。
+  '''
   def __init__(self, cluster_config):
     self.cluster_config = cluster_config
 
@@ -51,6 +76,10 @@ class VMController:
     self.manage_vms(cluster_name, "halt")
 
   def manage_vms(self, cluster_name, action):
+    u'''
+    start_vmsメソッドやstop_vmsメソッドから呼ばれる
+    汎用的なVM管理用メソッドである。
+    '''
     for cluster in cluster_config.data:
       if cluster["name"] == cluster_name:
         for dir in cluster["dirs"]:
@@ -60,10 +89,13 @@ class VMController:
             p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
                 stdin=PIPE, stdout=PIPE, stderr=STDOUT)
             ret = p.wait()
-            print p.communicate()[0]
+            print p.communicate()[0].decode("utf8")
             print ""
 
 def check_args(argv, argc):
+  u'''
+  引数の個数や内容を簡単に確認する。
+  '''
   result = True
 
   if argc < 2:
@@ -78,6 +110,11 @@ def check_args(argv, argc):
   return result
 
 def gen_cluster_config(argv, argc):
+  u'''
+  コマンドライン引数として設定ファイル名が
+  渡されているかどうかを確認し、
+  ClusterConfigのインスタンスを生成する。
+  '''
   cluster_config = None
 
   if argv[1] == "up" or argv[1] == "halt":
@@ -89,7 +126,7 @@ def gen_cluster_config(argv, argc):
     if argc == 2:
       cluster_config = ClusterConfig()
     elif argc == 3:
-      cluster_config = ClusterConfig(sys.argv[3])
+      cluster_config = ClusterConfig(sys.argv[2])
 
   return cluster_config
 
