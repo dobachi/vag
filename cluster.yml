@@ -65,4 +65,16 @@ clusters:
         servers:
           - fedora
 
+  - name: kafka
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: kafka_cluster
+        servers:
+          - kafka-01
+          - kafka-02
+          - kafka-03
+          - kafka-04
+
 # vim: tw=0 ts=2 sw=2 et
