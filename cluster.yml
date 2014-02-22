@@ -76,5 +76,10 @@ clusters:
           - kafka-02
           - kafka-03
           - kafka-04
+      - name: storm_cluster
+        servers:
+          - storm-01
+          - storm-02
+          - storm-03
 
 # vim: tw=0 ts=2 sw=2 et
