@@ -1,0 +1,15 @@
+clusters:
+  - name: spark
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: spark_standalone
+        servers:
+          - spark-dev
+          - spark-01
+          - spark-02
+          - spark-03
+          - spark-04
+
+# vim: tw=0 ts=2 sw=2 et
