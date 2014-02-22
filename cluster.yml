@@ -12,4 +12,57 @@ clusters:
           - spark-03
           - spark-04
 
+  - name: cdh5
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: cdh5_cluster
+        servers:
+          - cdh5-cl-01
+          - cdh5-nn-01
+          - cdh5-rm-01
+          - cdh5-sl-01
+          - cdh5-sl-02
+          - cdh5-sl-03
+          - cdh5-snn-01
+          - cdh5-ot-01
+
+  - name: storm
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: kafka_cluster
+        servers:
+          - kafka-01
+          - kafka-02
+          - kafka-03
+          - kafka-04
+      - name: storm_cluster
+        servers:
+          - storm-dev
+          - storm-01
+          - storm-02
+          - storm-03
+          - storm-04
+
+  - name: centos_desktop
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: desktop
+        servers:
+          - desktop
+
+  - name: fedora
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: fedora
+        servers:
+          - fedora
+
 # vim: tw=0 ts=2 sw=2 et
