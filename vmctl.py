@@ -39,7 +39,9 @@ class ClusterConfig:
     print "You can use the following cluster names."
     print ""
     for cluster in self.data:
-      print "- %s" % cluster["name"]
+      print "- %s:" % cluster["name"]
+      description = "    " + cluster.get("description", "None description")
+      print description
 
     print ""
     print "Cluster detail"
