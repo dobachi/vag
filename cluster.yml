@@ -87,4 +87,14 @@ clusters:
           - storm-02
           - storm-03
 
+  - name: tmp
+    description: "servers for temporaly test"
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: tmp
+        servers:
+          - tmp-dev
+
 # vim: tw=0 ts=2 sw=2 et
