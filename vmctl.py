@@ -5,6 +5,7 @@ import sys
 import yaml
 import os.path
 import pprint
+import argparse
 from subprocess import Popen, PIPE, STDOUT
 
 class ClusterConfig:
@@ -28,7 +29,7 @@ class ClusterConfig:
     string = string.decode('utf8')
     return yaml.load(string)["clusters"]
 
-  def print_list(self):
+  def print_list(self, verbose=False):
     u'''
     設定ファイルの内容をパースして一覧として表示する。
     '''
@@ -43,25 +44,26 @@ class ClusterConfig:
       description = "    " + cluster.get("description", "None description")
       print description
 
-    print ""
-    print "Cluster detail"
-    print "=============="
-    print "The following is the detail of each cluster."
-    print ""
-    print "Sample"
-    print "------"
-    print "Cluster: <cluster name>"
-    print "  - <directory name>(<server list>)"
-    print ""
-    print "Clusters"
-    print "--------"
-    for cluster in self.data:
-      print "Cluster: %s" % cluster["name"]
-      for dir in cluster["dirs"]:
-        servers = ""
-        servers = ",".join(dir["servers"])
-        print "  - %s(%s)" % (dir["name"], servers)
+    if verbose == True:
       print ""
+      print "Cluster detail"
+      print "=============="
+      print "The following is the detail of each cluster."
+      print ""
+      print "Sample"
+      print "------"
+      print "Cluster: <cluster name>"
+      print "  - <directory name>(<server list>)"
+      print ""
+      print "Clusters"
+      print "--------"
+      for cluster in self.data:
+        print "Cluster: %s" % cluster["name"]
+        for dir in cluster["dirs"]:
+          servers = ""
+          servers = ",".join(dir["servers"])
+          print "  - %s(%s)" % (dir["name"], servers)
+        print ""
 
 class VMController:
   u'''
@@ -94,76 +96,49 @@ class VMController:
             print p.communicate()[0].decode("utf8")
             print ""
 
-def check_args(argv, argc):
+def parse_args():
   u'''
-  引数の個数や内容を簡単に確認する。
+  コマンドライン引数とオプションを設定するメソッド。
   '''
-  result = True
+  parser = argparse.ArgumentParser(description="The management tool for vagrant configs")
+  parser.add_argument("command", choices=["up", "halt", "list"], help="Which kind of task do you want to do")
 
-  if argc < 2:
-    result = False
-  else:
-    if argv[1] == "up" or argv[1] == "halt":
-      if argc < 3:
-        result = False
-    elif argv[1] != "list":
-      result = False
+  # listコマンドを使用するときは不要な引数なので、引数なしの時はデフォルト値を使用する
+  parser.add_argument("cluster_name",
+                      help="The name of cluster which you want to handle. When you execute \"list\" task, this argument is not necessary.",
+                      default=None, nargs='?')
 
-  return result
-
-def gen_cluster_config(argv, argc):
-  u'''
-  コマンドライン引数として設定ファイル名が
-  渡されているかどうかを確認し、
-  ClusterConfigのインスタンスを生成する。
-  '''
-  cluster_config = None
-
-  if argv[1] == "up" or argv[1] == "halt":
-    if argc == 3:
-      cluster_config = ClusterConfig()
-    elif argc == 4:
-      cluster_config = ClusterConfig(sys.argv[3])
-  else:
-    if argc == 2:
-      cluster_config = ClusterConfig()
-    elif argc == 3:
-      cluster_config = ClusterConfig(sys.argv[2])
-
-  return cluster_config
-
-def print_usage():
-  print "Usage:"
-  print "  %s up <cluster_name> [config_name]" % sys.argv[0]
-  print "  %s halt <cluster_name> [config_name]" % sys.argv[0]
-  print "  %s list [config_name]" % sys.argv[0]
-  print ""
-  print "Default config name:"
-  print "  cluster.yml"
+  parser.add_argument("-c","--config", help="The path of the configration of cluster. (default: ./cluster.yml)", type=file)
+  parser.add_argument("-v", "--verbose", action="store_true", default=False, help="Enable verbose mode")
+  args = parser.parse_args()
+  return (parser, args)
 
 if __name__ == '__main__':
-  argv = sys.argv
-  argc = len(sys.argv)
+  parser, args = parse_args()
 
-  if check_args(argv, argc) == False:
-    print_usage()
-    sys.exit(1)
+  if args.config == None:
+    cluster_config = ClusterConfig()
+  else:
+    cluster_config = ClusterConfig(args.config)
 
-  cluster_config = gen_cluster_config(argv, argc)
-  if cluster_config == None:
-    print_usage()
-    sys.exit(1)
-
-  if argv[1] == "list":
-    cluster_config.print_list()
+  if args.command == "list":
+    cluster_config.print_list(args.verbose)
     sys.exit(0)
+  elif args.cluster_name == None:
+    u'''
+    コマンドがlistでないときは、クラスタ名が必要
+    このあたり、もう少しスマートに扱いたい
+    '''
+    print "ERROR: You need cluster_name"
+    parser.print_usage()
+    sys.exit(1)
 
   vm_controller = VMController(cluster_config)
 
-  if argv[1] == "up":
-    vm_controller.start_vms(argv[2])
-  elif argv[1] == "halt":
-    vm_controller.stop_vms(argv[2])
+  if args.command == "up":
+    vm_controller.start_vms(args.cluster_name)
+  elif args.command == "halt":
+    vm_controller.stop_vms(args.cluster_name)
 
   sys.exit(0)
 
