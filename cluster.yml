@@ -30,6 +30,16 @@ clusters:
           - cdh5-snn-01
           - cdh5-ot-01
 
+  - name: cdh5-pseudo
+    description: "CDH5 Pseudo"
+    dirs:
+      - name: management
+        servers:
+          - manage
+      - name: cdh5_pseudo
+        servers:
+          - cdh5-pseudo
+
   - name: storm
     description: "Storm and Kafka cluster"
     dirs:
