@@ -12,6 +12,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.hostname = "desktop"
   end
 
+  config.vm.define "fedora-desk" do |config|
+        config.vm.box = "fedora19_desktop"
+        config.vm.network :private_network, ip: "192.168.33.212"
+        config.vm.hostname = "fedora-desk"
+  end
+
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
     vb.gui = true
