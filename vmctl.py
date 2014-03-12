@@ -65,6 +65,20 @@ class ClusterConfig:
           print "  - %s(%s)" % (dir["name"], servers)
         print ""
 
+  def print_runningvms(self, verbose=False):
+    u'''
+    現在動作しているVMを表示する
+    '''
+    print ""
+    print "Running VMs"
+    print "================="
+    print ""
+    p = Popen("VBoxManage list runningvms", shell=True, bufsize=1024,
+        stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    ret = p.wait()
+    print p.communicate()[0].decode("utf8")
+    print ""
+
 class VMController:
   u'''
   VagrantのVMを管理するクラス。
@@ -101,7 +115,7 @@ def parse_args():
   コマンドライン引数とオプションを設定するメソッド。
   '''
   parser = argparse.ArgumentParser(description="The management tool for vagrant configs")
-  parser.add_argument("command", choices=["up", "halt", "list"], help="Which kind of task do you want to do")
+  parser.add_argument("command", choices=["up", "halt", "list", "rvms"], help="Which kind of task do you want to do")
 
   # listコマンドを使用するときは不要な引数なので、引数なしの時はデフォルト値を使用する
   parser.add_argument("cluster_name",
@@ -123,6 +137,9 @@ if __name__ == '__main__':
 
   if args.command == "list":
     cluster_config.print_list(args.verbose)
+    sys.exit(0)
+  elif args.command == "rvms":
+    cluster_config.print_runningvms(args.verbose)
     sys.exit(0)
   elif args.cluster_name == None:
     u'''
