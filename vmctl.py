@@ -100,8 +100,9 @@ class VMController:
     '''
     for cluster in cluster_config.data:
       if cluster["name"] == cluster_name:
+        base_dir=os.getcwd()
         for dir in cluster["dirs"]:
-          os.chdir(os.path.join(sys.path[0], dir["name"]))
+          os.chdir(os.path.join(base_dir, dir["name"]))
           for server in dir["servers"]:
             print action + " vm: " + server
             p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
