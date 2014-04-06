@@ -93,6 +93,9 @@ class VMController:
   def stop_vms(self, cluster_name):
     self.manage_vms(cluster_name, "halt")
 
+  def remove_vms(self, cluster_name):
+    self.manage_vms(cluster_name, "destroy")
+
   def manage_vms(self, cluster_name, action):
     u'''
     start_vmsメソッドやstop_vmsメソッドから呼ばれる
@@ -100,6 +103,14 @@ class VMController:
     '''
     for cluster in cluster_config.data:
       if cluster["name"] == cluster_name:
+        if action == "destroy":
+          result = None
+          while result != "y":
+            result = raw_input("Do you realy want to destroy VMs? [y/n] : ")
+            if result == "n":
+              sys.exit(0)
+          action = action + " -f"
+
         base_dir=os.getcwd()
         for dir in cluster["dirs"]:
           os.chdir(os.path.join(base_dir, dir["name"]))
@@ -116,7 +127,7 @@ def parse_args():
   コマンドライン引数とオプションを設定するメソッド。
   '''
   parser = argparse.ArgumentParser(description="The management tool for vagrant configs")
-  parser.add_argument("command", choices=["up", "halt", "list", "rvms"], help="Which kind of task do you want to do")
+  parser.add_argument("command", choices=["up", "halt", "destroy", "list", "rvms"], help="Which kind of task do you want to do")
 
   # listコマンドを使用するときは不要な引数なので、引数なしの時はデフォルト値を使用する
   parser.add_argument("cluster_name",
@@ -157,6 +168,8 @@ if __name__ == '__main__':
     vm_controller.start_vms(args.cluster_name)
   elif args.command == "halt":
     vm_controller.stop_vms(args.cluster_name)
+  elif args.command == "destroy":
+    vm_controller.remove_vms(args.cluster_name)
 
   sys.exit(0)
 
