@@ -120,4 +120,11 @@ clusters:
           - tmp-02
           - tmp-03
 
+  - name: manage
+    description: "servers for management"
+    dirs:
+      - name: management
+        servers:
+          - manage
+
 # vim: tw=0 ts=2 sw=2 et
