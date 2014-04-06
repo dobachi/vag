@@ -24,3 +24,24 @@ README
  $ ./vmctl.py
 
 とすると、使い方が表示される。
+
+基本的な使い方
+--------------
+使えるVM群のリストを表示する::
+
+ $ ./vmctl.py list
+
+使えるVM群のリストを詳しく表示する::
+
+ $ ./vmctl.py list -v
+
+
+VM群を起動する::
+
+ $ ./vmctl.py up <VM群名>
+
+VM群を停止する::
+
+ $ ./vmctl.py halt <VM群名>
+
+.. vim: ft=rst tw=0
