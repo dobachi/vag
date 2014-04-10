@@ -186,7 +186,7 @@ if __name__ == '__main__':
     cluster_config.print_list(args.verbose)
     sys.exit(0)
   elif args.command == "rvms":
-    cluster_config.print_runningvms(args.verbose)
+    cluster_config.print_runningvms()
     sys.exit(0)
   elif args.cluster_name == None:
     u'''
