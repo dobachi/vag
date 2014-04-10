@@ -86,41 +86,41 @@ class VMController:
   '''
   def __init__(self, cluster_config):
     self.cluster_config = cluster_config
+    self.base_dir = os.getcwd()
 
   def start_vms(self, cluster_name, direct=False):
-    if direct == True:
-      self.manage_vm_directly(cluster_name, "up")
-    else:
-      self.manage_vms(cluster_name, "up")
+    self.manage(cluster_name, "up", direct)
     
   def stop_vms(self, cluster_name, direct=False):
-    if direct == True:
-      self.manage_vm_directly(cluster_name, "halt")
-    else:
-      self.manage_vms(cluster_name, "halt")
+    self.manage(cluster_name, "halt", direct)
 
   def status_vms(self, cluster_name, direct=False):
-    if direct == True:
-      self.manage_vm_directly(cluster_name, "status")
-    else:
-      self.manage_vms(cluster_name, "status")
+    self.manage(cluster_name, "status", direct)
 
   def remove_vms(self, cluster_name, direct=False):
+    self.manage(cluster_name, "destroy", direct)
+
+  def manage(self, cluster_name, action, direct=False):
+    '''
+    カンマ区切りで渡された複数のクラスタ名を扱うための
+    ラッパーメソッド
+    '''
     if direct == True:
-      self.manage_vm_directly(cluster_name, "destroy")
+      for item in cluster_name.split(','):
+        self.manage_vm_directly(item, action)
     else:
-      self.manage_vms(cluster_name, "destroy")
+      for item in cluster_name.split(','):
+        self.manage_vms(item, action)
 
   def manage_vm_directly(self, cluster_name, action):
     '''
     ディレクトリ名とVM名を直接指定してVMを管理する
     '''
-    base_dir = os.getcwd()
-    dir_fullpath = os.path.join(base_dir, os.path.dirname(cluster_name))
+    dir_fullpath = os.path.join(self.base_dir, os.path.dirname(cluster_name))
     server = os.path.basename(cluster_name)
 
     if os.path.isdir(dir_fullpath) == False:
-      print "Cannot find the directory: %s" % base_dir
+      print "Cannot find the directory: %s" % self.base_dir
       sys.exit(1)
 
     os.chdir(dir_fullpath)
@@ -146,9 +146,8 @@ class VMController:
               sys.exit(0)
           action = action + " -f"
 
-        base_dir = os.getcwd()
         for dir in cluster["dirs"]:
-          os.chdir(os.path.join(base_dir, dir["name"]))
+          os.chdir(os.path.join(self.base_dir, dir["name"]))
           for server in dir["servers"]:
             print action + " vm: " + server
             p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
