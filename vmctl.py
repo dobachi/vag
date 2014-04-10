@@ -116,9 +116,14 @@ class VMController:
     ディレクトリ名とVM名を直接指定してVMを管理する
     '''
     base_dir = os.getcwd()
+    dir_fullpath = os.path.join(base_dir, os.path.dirname(cluster_name))
     server = os.path.basename(cluster_name)
 
-    os.chdir(os.path.join(base_dir, os.path.dirname(cluster_name)))
+    if os.path.isdir(dir_fullpath) == False:
+      print "Cannot find the directory: %s" % base_dir
+      sys.exit(1)
+
+    os.chdir(dir_fullpath)
     print action + " vm: " + cluster_name
     p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
         stdin=PIPE, stdout=PIPE, stderr=STDOUT)
