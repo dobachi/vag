@@ -65,7 +65,7 @@ class ClusterConfig:
           print "  - %s(%s)" % (dir["name"], servers)
         print ""
 
-  def print_runningvms(self, verbose=False):
+  def print_runningvms(self):
     u'''
     現在動作しているVMを表示する
     '''
@@ -87,17 +87,44 @@ class VMController:
   def __init__(self, cluster_config):
     self.cluster_config = cluster_config
 
-  def start_vms(self, cluster_name):
-    self.manage_vms(cluster_name, "up")
+  def start_vms(self, cluster_name, direct=False):
+    if direct == True:
+      self.manage_vm_directly(cluster_name, "up")
+    else:
+      self.manage_vms(cluster_name, "up")
     
-  def stop_vms(self, cluster_name):
-    self.manage_vms(cluster_name, "halt")
+  def stop_vms(self, cluster_name, direct=False):
+    if direct == True:
+      self.manage_vm_directly(cluster_name, "halt")
+    else:
+      self.manage_vms(cluster_name, "halt")
 
-  def status_vms(self, cluster_name):
-    self.manage_vms(cluster_name, "status")
+  def status_vms(self, cluster_name, direct=False):
+    if direct == True:
+      self.manage_vm_directly(cluster_name, "status")
+    else:
+      self.manage_vms(cluster_name, "status")
 
-  def remove_vms(self, cluster_name):
-    self.manage_vms(cluster_name, "destroy")
+  def remove_vms(self, cluster_name, direct=False):
+    if direct == True:
+      self.manage_vm_directly(cluster_name, "destroy")
+    else:
+      self.manage_vms(cluster_name, "destroy")
+
+  def manage_vm_directly(self, cluster_name, action):
+    '''
+    ディレクトリ名とVM名を直接指定してVMを管理する
+    '''
+    base_dir = os.getcwd()
+    server = os.path.basename(cluster_name)
+
+    os.chdir(os.path.join(base_dir, os.path.dirname(cluster_name)))
+    print action + " vm: " + cluster_name
+    p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
+        stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    ret = p.wait()
+    print p.communicate()[0].decode("utf8")
+    print ""
 
   def manage_vms(self, cluster_name, action):
     u'''
@@ -114,7 +141,7 @@ class VMController:
               sys.exit(0)
           action = action + " -f"
 
-        base_dir=os.getcwd()
+        base_dir = os.getcwd()
         for dir in cluster["dirs"]:
           os.chdir(os.path.join(base_dir, dir["name"]))
           for server in dir["servers"]:
@@ -139,6 +166,7 @@ def parse_args():
 
   parser.add_argument("-c","--config", help="The path of the configration of cluster. (default: ./cluster.yml)", type=file)
   parser.add_argument("-v", "--verbose", action="store_true", default=False, help="Enable verbose mode")
+  parser.add_argument("-d", "--direct", action="store_true", default=False, help="Enable direct mode")
   args = parser.parse_args()
   return (parser, args)
 
@@ -168,13 +196,13 @@ if __name__ == '__main__':
   vm_controller = VMController(cluster_config)
 
   if args.command == "up":
-    vm_controller.start_vms(args.cluster_name)
+    vm_controller.start_vms(args.cluster_name, args.direct)
   elif args.command == "halt":
-    vm_controller.stop_vms(args.cluster_name)
+    vm_controller.stop_vms(args.cluster_name, args.direct)
   elif args.command == "status":
-    vm_controller.status_vms(args.cluster_name)
+    vm_controller.status_vms(args.cluster_name, args.direct)
   elif args.command == "destroy":
-    vm_controller.remove_vms(args.cluster_name)
+    vm_controller.remove_vms(args.cluster_name, args.direct)
 
   sys.exit(0)
 
