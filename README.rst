@@ -46,6 +46,10 @@ VM群を停止する::
 
  $ ./vmctl.py halt <VM群名>
 
+VM群の状態を確認する::
+
+ $ ./vmctl.py status <VM群名>
+
 VM群を削除する::
 
  $ ./vmctl.py destroy <VM群名>
