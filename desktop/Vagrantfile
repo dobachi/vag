@@ -7,13 +7,13 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "desktop" do |config|
-        config.vm.box = "centos64_desktop"
+        config.vm.box = "centos65_desktop"
         config.vm.network :private_network, ip: "192.168.33.211"
         config.vm.hostname = "desktop"
   end
 
   config.vm.define "fedora-desk" do |config|
-        config.vm.box = "fedora19_desktop"
+        config.vm.box = "fedora20_desktop"
         config.vm.network :private_network, ip: "192.168.33.212"
         config.vm.hostname = "fedora-desk"
   end
@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "3072"]
-    vb.customize ["modifyvm", :id, "--vram", "12"]
+    vb.customize ["modifyvm", :id, "--vram", "24"]
 
     vb.auto_nat_dns_proxy = false
     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
