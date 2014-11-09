@@ -15,42 +15,49 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "client01" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.70"
+	config.vm.guest = :fedora
         config.vm.hostname = "client01"
   end
 
   config.vm.define "master01" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.71"
+	config.vm.guest = :fedora
         config.vm.hostname = "master01"
   end
 
   config.vm.define "master02" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.72"
+	config.vm.guest = :fedora
         config.vm.hostname = "master02"
   end
 
   config.vm.define "master03" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.73"
+	config.vm.guest = :fedora
         config.vm.hostname = "master03"
   end
 
   config.vm.define "slave01" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.74"
+	config.vm.guest = :fedora
         config.vm.hostname = "slave01"
   end
 
   config.vm.define "slave02" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.75"
+	config.vm.guest = :fedora
         config.vm.hostname = "slave02"
   end
 
   config.vm.define "slave03" do |config|
         config.vm.box = "centos7"
         config.vm.network :private_network, ip: "192.168.33.78"
+	config.vm.guest = :fedora
         config.vm.hostname = "slave03"
   end
 end
