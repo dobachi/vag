@@ -30,6 +30,19 @@ clusters:
           - cdh5-snn-01
           - cdh5-ot-01
 
+  - name: cdh5_ha
+    description: "CDH5 HDFS and YARN with HA"
+    dirs:
+      - name: cdh5_ha
+        servers:
+          - client01
+          - master01
+          - master02
+          - master03
+          - slave01
+          - slave02
+          - slave03
+
   - name: cdh5_pseudo
     description: "CDH5 Pseudo"
     dirs:
