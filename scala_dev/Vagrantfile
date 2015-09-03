@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = "scala-dev"
-  config.vm.box = "centos64_desktop"
+  config.vm.box = "centos66_desktop"
   config.vm.network :private_network, ip: "192.168.33.30"
   #
   config.vm.provider :virtualbox do |vb|

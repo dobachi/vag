@@ -14,25 +14,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "tmp-dev" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.240"
         config.vm.hostname = "tmp-dev"
   end
 
   config.vm.define "tmp-01" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.241"
         config.vm.hostname = "tmp-01"
   end
 
   config.vm.define "tmp-02" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.242"
         config.vm.hostname = "tmp-02"
   end
 
   config.vm.define "tmp-03" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.243"
         config.vm.hostname = "tmp-03"
   end

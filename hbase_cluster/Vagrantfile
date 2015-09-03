@@ -13,43 +13,43 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "hbase-dev" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.40"
         config.vm.hostname = "hbase-dev"
   end
 
   config.vm.define "hbase-01" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.41"
         config.vm.hostname = "hbase-01"
   end
 
   config.vm.define "hbase-02" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.42"
         config.vm.hostname = "hbase-02"
   end
 
   config.vm.define "hbase-03" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.43"
         config.vm.hostname = "hbase-03"
   end
 
   config.vm.define "hbase-04" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.44"
         config.vm.hostname = "hbase-04"
   end
 
   config.vm.define "hbase-pseudo" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.45"
         config.vm.hostname = "hbase-pseudo"
   end
 
   config.vm.define "hbase-pseudo-cdh3" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.46"
         config.vm.hostname = "hbase-pseudo-cdh3"
   end

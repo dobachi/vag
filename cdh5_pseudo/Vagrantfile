@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "cdh5-pseudo" do |config|
-        config.vm.box = "centos64_base"
+        config.vm.box = "centos66_base"
         config.vm.network :private_network, ip: "192.168.33.69"
         config.vm.hostname = "cdh5-pseudo"
   end

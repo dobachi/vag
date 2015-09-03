@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "desktop32" do |config|
-        config.vm.box = "centos64_32_desktop"
+        config.vm.box = "centos66_32_desktop"
         config.vm.network :private_network, ip: "192.168.33.212"
         config.vm.hostname = "desktop32"
   end
