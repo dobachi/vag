@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.provider :virtualbox do |vb|
+    vb.auto_nat_dns_proxy = false
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    vb.customize ["modifyvm", :id, "--memory", "256"]
+  end
+
+  config.vm.define "ubuntu16" do |config|
+        config.vm.box = "ubuntu/xenial64"
+        config.vm.network :private_network, ip: "192.168.33.230"
+        config.vm.hostname = "tmp-dev"
+  end
+
+  config.vm.define "ubuntu14" do |config|
+        config.vm.box = "ubuntu/trusty64"
+        config.vm.network :private_network, ip: "192.168.33.230"
+        config.vm.hostname = "tmp-dev"
+  end
+
+  config.vm.define "ubuntu12" do |config|
+        config.vm.box = "hashicorp/precise64"
+        config.vm.network :private_network, ip: "192.168.33.231"
+        config.vm.hostname = "tmp-01"
+  end
+end
