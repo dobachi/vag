@@ -16,18 +16,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "ubuntu16" do |config|
         config.vm.box = "ubuntu/xenial64"
         config.vm.network :private_network, ip: "192.168.33.230"
-        config.vm.hostname = "tmp-dev"
+        config.vm.hostname = "ubuntu16"
   end
 
   config.vm.define "ubuntu14" do |config|
         config.vm.box = "ubuntu/trusty64"
         config.vm.network :private_network, ip: "192.168.33.230"
-        config.vm.hostname = "tmp-dev"
+        config.vm.hostname = "ubuntu14"
   end
 
   config.vm.define "ubuntu12" do |config|
         config.vm.box = "hashicorp/precise64"
         config.vm.network :private_network, ip: "192.168.33.231"
-        config.vm.hostname = "tmp-01"
+        config.vm.hostname = "ubuntu12"
   end
 end
