@@ -21,13 +21,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "ubuntu14" do |config|
         config.vm.box = "ubuntu/trusty64"
-        config.vm.network :private_network, ip: "192.168.33.230"
+        config.vm.network :private_network, ip: "192.168.33.231"
         config.vm.hostname = "ubuntu14"
   end
 
   config.vm.define "ubuntu12" do |config|
         config.vm.box = "hashicorp/precise64"
-        config.vm.network :private_network, ip: "192.168.33.231"
+        config.vm.network :private_network, ip: "192.168.33.232"
         config.vm.hostname = "ubuntu12"
   end
 end
