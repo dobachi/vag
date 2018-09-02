@@ -13,25 +13,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "cass-dev" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.50"
         config.vm.hostname = "cass-dev"
   end
 
   config.vm.define "cass-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.51"
         config.vm.hostname = "cass-01"
   end
 
   config.vm.define "cass-02" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.52"
         config.vm.hostname = "cass-02"
   end
 
   config.vm.define "cass-03" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.53"
         config.vm.hostname = "cass-03"
   end

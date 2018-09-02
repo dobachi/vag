@@ -14,31 +14,31 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   config.vm.define "storm-dev" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.10"
         config.vm.hostname = "storm-dev"
   end
 
   config.vm.define "storm-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.11"
         config.vm.hostname = "storm-01"
   end
 
   config.vm.define "storm-02" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.12"
         config.vm.hostname = "storm-02"
   end
 
   config.vm.define "storm-03" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.13"
         config.vm.hostname = "storm-03"
   end
 
   config.vm.define "storm-04" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.14"
         config.vm.hostname = "storm-04"
   end

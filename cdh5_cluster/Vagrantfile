@@ -13,49 +13,49 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "cdh5-cl-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.70"
         config.vm.hostname = "cdh5-cl-01"
   end
 
   config.vm.define "cdh5-nn-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.71"
         config.vm.hostname = "cdh5-nn-01"
   end
 
   config.vm.define "cdh5-rm-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.72"
         config.vm.hostname = "cdh5-rm-01"
   end
 
   config.vm.define "cdh5-sl-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.73"
         config.vm.hostname = "cdh5-sl-01"
   end
 
   config.vm.define "cdh5-sl-02" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.74"
         config.vm.hostname = "cdh5-sl-02"
   end
 
   config.vm.define "cdh5-sl-03" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.75"
         config.vm.hostname = "cdh5-sl-03"
   end
 
   config.vm.define "cdh5-snn-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.78"
         config.vm.hostname = "cdh5-snn-01"
   end
 
   config.vm.define "cdh5-ot-01" do |config|
-        config.vm.box = "centos66_base"
+        config.vm.box = "centos/7"
         config.vm.network :private_network, ip: "192.168.33.79"
         config.vm.hostname = "cdh5-ot-01"
   end
