@@ -9,7 +9,7 @@ import argparse
 from subprocess import Popen, PIPE, STDOUT
 
 class ClusterConfig:
-  '''
+  u'''
   クラスタの設定ファイルの内容を格納するクラス。
   print_listメソッドを利用し、設定ファイルの内容を
   パースして出力できる。
@@ -20,66 +20,67 @@ class ClusterConfig:
 
   def load_config(self):
     if os.path.exists(self.config_name) == False:
-      print("config file does not exit: %s" % self.config_name)
-      print("")
+      print "config file does not exit: %s" % self.config_name
+      print ""
       print_usage()
       sys.exit(1)
 
     string = open(self.config_name).read()
+    string = string.decode('utf8')
     return yaml.load(string)["clusters"]
 
   def print_list(self, verbose=False):
-    '''
+    u'''
     設定ファイルの内容をパースして一覧として表示する。
     '''
 
-    print("")
-    print("Available cluster")
-    print("=================")
-    print("You can use the following cluster names.")
-    print("")
+    print ""
+    print "Available cluster"
+    print "================="
+    print "You can use the following cluster names."
+    print ""
     for cluster in self.data:
-      print("- %s:" % cluster["name"])
+      print "- %s:" % cluster["name"]
       description = "    " + cluster.get("description", "None description")
-      print(description)
+      print description
 
     if verbose == True:
-      print("")
-      print("Cluster detail")
-      print("==============")
-      print("The following is the detail of each cluster.")
-      print("")
-      print("Sample")
-      print("------")
-      print("Cluster: <cluster name>")
-      print("  - <directory name>(<server list>)")
-      print("")
-      print("Clusters")
-      print("--------")
+      print ""
+      print "Cluster detail"
+      print "=============="
+      print "The following is the detail of each cluster."
+      print ""
+      print "Sample"
+      print "------"
+      print "Cluster: <cluster name>"
+      print "  - <directory name>(<server list>)"
+      print ""
+      print "Clusters"
+      print "--------"
       for cluster in self.data:
-        print("Cluster: %s" % cluster["name"])
+        print "Cluster: %s" % cluster["name"]
         for dir in cluster["dirs"]:
           servers = ""
           servers = ",".join(dir["servers"])
-          print("  - %s(%s)" % (dir["name"], servers))
-        print("")
+          print "  - %s(%s)" % (dir["name"], servers)
+        print ""
 
   def print_runningvms(self):
-    '''
+    u'''
     現在動作しているVMを表示する
     '''
-    print("")
-    print("Running VMs")
-    print("=================")
-    print("")
+    print ""
+    print "Running VMs"
+    print "================="
+    print ""
     p = Popen("VBoxManage list runningvms", shell=True, bufsize=1024,
         stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     ret = p.wait()
-    print(p.communicate()[0].decode("utf8"))
-    print("")
+    print p.communicate()[0].decode("utf8")
+    print ""
 
 class VMController:
-  '''
+  u'''
   VagrantのVMを管理するクラス。
   起動したり、停止したりできる。
   '''
@@ -119,19 +120,19 @@ class VMController:
     server = os.path.basename(cluster_name)
 
     if os.path.isdir(dir_fullpath) == False:
-      print("Cannot find the directory: %s" % self.base_dir)
+      print "Cannot find the directory: %s" % self.base_dir
       sys.exit(1)
 
     os.chdir(dir_fullpath)
-    print(action + " vm: " + cluster_name)
+    print action + " vm: " + cluster_name
     p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
         stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     ret = p.wait()
-    print(p.communicate()[0].decode("utf8"))
-    print("")
+    print p.communicate()[0].decode("utf8")
+    print ""
 
   def manage_vms(self, cluster_name, action):
-    '''
+    u'''
     start_vmsメソッドやstop_vmsメソッドから呼ばれる
     汎用的なVM管理用メソッドである。
     '''
@@ -140,7 +141,7 @@ class VMController:
         if action == "destroy":
           result = None
           while result != "y":
-            result = input("Do you realy want to destroy VMs? [y/n] : ")
+            result = raw_input("Do you realy want to destroy VMs? [y/n] : ")
             if result == "n":
               sys.exit(0)
           action = action + " -f"
@@ -148,15 +149,15 @@ class VMController:
         for dir in cluster["dirs"]:
           os.chdir(os.path.join(self.base_dir, dir["name"]))
           for server in dir["servers"]:
-            print(action + " vm: " + server)
+            print action + " vm: " + server
             p = Popen("vagrant " + action + " " + server, shell=True, bufsize=1024,
                 stdin=PIPE, stdout=PIPE, stderr=STDOUT)
             ret = p.wait()
-            print(p.communicate()[0].decode("utf8"))
-            print("")
+            print p.communicate()[0].decode("utf8")
+            print ""
 
 def parse_args():
-  '''
+  u'''
   コマンドライン引数とオプションを設定するメソッド。
   '''
   parser = argparse.ArgumentParser(description="The management tool for vagrant configs")
@@ -167,7 +168,7 @@ def parse_args():
                       help="The name of cluster which you want to handle. When you execute \"list\" task, this argument is not necessary.",
                       default=None, nargs='?')
 
-  parser.add_argument("-c","--config", help="The path of the configration of cluster. (default: ./cluster.yml)", type=argparse.FileType("r"))
+  parser.add_argument("-c","--config", help="The path of the configration of cluster. (default: ./cluster.yml)", type=file)
   parser.add_argument("-v", "--verbose", action="store_true", default=False, help="Enable verbose mode")
   parser.add_argument("-d", "--direct", action="store_true", default=False, help="Enable direct mode")
   args = parser.parse_args()
@@ -188,11 +189,11 @@ if __name__ == '__main__':
     cluster_config.print_runningvms()
     sys.exit(0)
   elif args.cluster_name == None:
-    '''
+    u'''
     コマンドがlistでないときは、クラスタ名が必要
     このあたり、もう少しスマートに扱いたい
     '''
-    print("ERROR: You need cluster_name")
+    print "ERROR: You need cluster_name"
     parser.print_usage()
     sys.exit(1)
 
